@@ -3,6 +3,7 @@ import UserContext from './UserContext';
 
 function UserDetails() {
   const userData = useContext(UserContext);
+  console.log('UserDetails Context Data:', userData); // Debug line
 
   return (
     <div>
