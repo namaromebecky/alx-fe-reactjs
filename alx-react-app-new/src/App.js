@@ -10,6 +10,7 @@ function App() {
     <div className="App" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header />
       <MainContent />
+      <Counter />
       <Footer />
     </div>
   );
