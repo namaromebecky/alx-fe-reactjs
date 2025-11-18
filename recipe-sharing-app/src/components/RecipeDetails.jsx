@@ -25,7 +25,12 @@ const RecipeDetails = () => {
       <Link to="/" className="back-link">← Back to Recipes</Link>
       
       <div className="recipe-header">
-        <h1>{recipe.title}</h1>
+        <div className="recipe-title-section">
+          <h1>{recipe.title}</h1>
+          {recipe.category && (
+            <span className="recipe-category-badge">{recipe.category}</span>
+          )}
+        </div>
         <div className="recipe-actions">
           <EditRecipeForm recipe={recipe} />
           <DeleteRecipeButton recipeId={recipe.id} />
@@ -33,14 +38,35 @@ const RecipeDetails = () => {
       </div>
       
       <div className="recipe-content">
-        <h3>Description</h3>
-        <p className="recipe-description">{recipe.description}</p>
+        <section className="recipe-section">
+          <h3>Description</h3>
+          <p className="recipe-description">{recipe.description}</p>
+        </section>
+
+        {recipe.ingredients && recipe.ingredients.length > 0 && (
+          <section className="recipe-section">
+            <h3>Ingredients</h3>
+            <ul className="ingredients-list">
+              {recipe.ingredients.map((ingredient, index) => (
+                <li key={index} className="ingredient-item">
+                  {ingredient}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         
-        {/* Additional recipe details can be added here */}
-        <div className="recipe-meta">
-          <p><strong>Recipe ID:</strong> {recipe.id}</p>
-          <p><strong>Added:</strong> {new Date(recipe.id).toLocaleDateString()}</p>
-        </div>
+        <section className="recipe-section">
+          <h3>Recipe Information</h3>
+          <div className="recipe-meta">
+            <p><strong>Recipe ID:</strong> {recipe.id}</p>
+            <p><strong>Added:</strong> {new Date(recipe.id).toLocaleDateString()}</p>
+            {recipe.category && <p><strong>Category:</strong> {recipe.category}</p>}
+            {recipe.ingredients && (
+              <p><strong>Ingredients Count:</strong> {recipe.ingredients.length}</p>
+            )}
+          </div>
+        </section>
       </div>
     </div>
   )
