@@ -6,12 +6,17 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>GitHub User Search</h1>
-        <p>Search for any GitHub user by their username</p>
+        <div className="header-content">
+          <h1>GitHub User Search</h1>
+          <p>Search and discover GitHub users with advanced filters</p>
+        </div>
       </header>
-      <main>
+      <main className="App-main">
         <Search />
       </main>
+      <footer className="App-footer">
+        <p>Built with React and GitHub API</p>
+      </footer>
     </div>
   );
 }
