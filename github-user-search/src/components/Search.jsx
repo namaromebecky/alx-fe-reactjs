@@ -322,41 +322,66 @@ const UserCard = ({ user }) => {
   }, [user.login]);
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow border">
-      <div className="flex items-center space-x-4">
+    <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border">
+      <div className="flex items-start space-x-6">
         <img
           src={user.avatar_url}
           alt={`${user.login}'s avatar`}
-          className="w-16 h-16 rounded-full border-2 border-gray-200"
+          className="w-20 h-20 rounded-full border-2 border-gray-200"
         />
         <div className="flex-1">
-          <h4 className="text-lg font-semibold text-gray-900">{user.login}</h4>
+          <div className="flex items-start justify-between">
+            <div>
+              <h4 className="text-xl font-semibold text-gray-900">{user.login}</h4>
+              {userDetails && userDetails.name && (
+                <p className="text-lg text-gray-600 font-medium mt-1">{userDetails.name}</p>
+              )}
+            </div>
+            <a
+              href={user.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium whitespace-nowrap"
+            >
+              View Profile
+            </a>
+          </div>
+          
           {userDetails && (
-            <div className="mt-2 space-y-1">
-              {userDetails.name && (
-                <p className="text-gray-600 font-medium">{userDetails.name}</p>
+            <div className="mt-4 space-y-3">
+              {userDetails.bio && (
+                <p className="text-gray-600">{userDetails.bio}</p>
               )}
-              {userDetails.location && (
-                <p className="text-sm text-gray-500">📍 {userDetails.location}</p>
-              )}
-              <div className="flex space-x-4 text-sm text-gray-500">
-                <span>👥 {userDetails.followers} followers</span>
-                <span>📚 {userDetails.public_repos} repos</span>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                {userDetails.location && (
+                  <div className="text-center">
+                    <p className="text-sm text-gray-500">Location</p>
+                    <p className="text-md font-semibold text-gray-900">📍 {userDetails.location}</p>
+                  </div>
+                )}
+                <div className="text-center">
+                  <p className="text-sm text-gray-500">Followers</p>
+                  <p className="text-md font-semibold text-gray-900">👥 {userDetails.followers}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm text-gray-500">Following</p>
+                  <p className="text-md font-semibold text-gray-900">🔄 {userDetails.following}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm text-gray-500">Repositories</p>
+                  <p className="text-md font-semibold text-gray-900">📚 {userDetails.public_repos}</p>
+                </div>
               </div>
             </div>
           )}
+          
           {loading && (
-            <p className="text-sm text-gray-500 mt-1">Loading details...</p>
+            <div className="mt-4 text-center">
+              <p className="text-gray-500">Loading user details...</p>
+            </div>
           )}
         </div>
-        <a
-          href={user.html_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium whitespace-nowrap"
-        >
-          View Profile
-        </a>
       </div>
     </div>
   );
