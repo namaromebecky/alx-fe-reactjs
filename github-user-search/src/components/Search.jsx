@@ -44,8 +44,7 @@ const Search = () => {
       
       {error && (
         <div className="error">
-          <p>Looks like we can't find the user</p>
-          <p className="error-detail">{error}</p>
+          <p>Looks like we cant find the user</p>
         </div>
       )}
 
