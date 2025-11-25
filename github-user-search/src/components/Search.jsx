@@ -18,7 +18,6 @@ const Search = () => {
   const [hasNextPage, setHasNextPage] = useState(false);
   const [totalResults, setTotalResults] = useState(0);
 
-  // Basic search handler
   const handleBasicSearch = async (e) => {
     e.preventDefault();
     if (!basicUsername.trim()) return;
@@ -38,11 +37,9 @@ const Search = () => {
     }
   };
 
-  // Advanced search handler
   const handleAdvancedSearch = async (e, page = 1) => {
     e?.preventDefault();
     
-    // Check if at least one field is filled
     const hasSearchCriteria = Object.values(advancedParams).some(value => value.trim());
     if (!hasSearchCriteria) {
       setError('Please fill at least one search field');
@@ -92,45 +89,51 @@ const Search = () => {
   };
 
   return (
-    <div className="search-container">
-      {/* Search Type Toggle */}
-      <div className="search-type-toggle">
+    <div className="max-w-4xl mx-auto p-6">
+      <div className="flex space-x-4 mb-8">
         <button
           onClick={() => setSearchType('basic')}
-          className={`toggle-btn ${searchType === 'basic' ? 'active' : ''}`}
+          className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+            searchType === 'basic'
+              ? 'bg-blue-600 text-white shadow-md'
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`}
         >
           Basic Search
         </button>
         <button
           onClick={() => setSearchType('advanced')}
-          className={`toggle-btn ${searchType === 'advanced' ? 'active' : ''}`}
+          className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+            searchType === 'advanced'
+              ? 'bg-blue-600 text-white shadow-md'
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`}
         >
           Advanced Search
         </button>
       </div>
 
-      {/* Basic Search Form */}
       {searchType === 'basic' && (
-        <form onSubmit={handleBasicSearch} className="search-form basic-search">
-          <div className="form-row">
+        <form onSubmit={handleBasicSearch} className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <div className="flex space-x-4">
             <input
               type="text"
               value={basicUsername}
               onChange={(e) => setBasicUsername(e.target.value)}
               placeholder="Enter GitHub username"
-              className="search-input"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
             <button
               type="submit"
               disabled={loading}
-              className="search-btn primary"
+              className="px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {loading ? 'Searching...' : 'Search'}
             </button>
             <button
               type="button"
               onClick={clearSearch}
-              className="search-btn secondary"
+              className="px-6 py-3 bg-gray-500 text-white rounded-lg font-medium hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
             >
               Clear
             </button>
@@ -138,63 +141,70 @@ const Search = () => {
         </form>
       )}
 
-      {/* Advanced Search Form */}
       {searchType === 'advanced' && (
-        <form onSubmit={handleAdvancedSearch} className="search-form advanced-search">
-          <div className="form-grid">
-            <div className="form-group">
-              <label className="form-label">Username</label>
+        <form onSubmit={handleAdvancedSearch} className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Username
+              </label>
               <input
                 type="text"
                 value={advancedParams.username}
                 onChange={(e) => handleAdvancedParamChange('username', e.target.value)}
                 placeholder="Username contains..."
-                className="form-input"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-            <div className="form-group">
-              <label className="form-label">Location</label>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Location
+              </label>
               <input
                 type="text"
                 value={advancedParams.location}
                 onChange={(e) => handleAdvancedParamChange('location', e.target.value)}
                 placeholder="User location..."
-                className="form-input"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-            <div className="form-group">
-              <label className="form-label">Minimum Repositories</label>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Minimum Repositories
+              </label>
               <input
                 type="number"
                 value={advancedParams.minRepos}
                 onChange={(e) => handleAdvancedParamChange('minRepos', e.target.value)}
                 placeholder="Minimum repos..."
-                className="form-input"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-            <div className="form-group">
-              <label className="form-label">Programming Language</label>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Programming Language
+              </label>
               <input
                 type="text"
                 value={advancedParams.language}
                 onChange={(e) => handleAdvancedParamChange('language', e.target.value)}
                 placeholder="Primary language..."
-                className="form-input"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
           </div>
-          <div className="form-actions">
+          <div className="flex space-x-4">
             <button
               type="submit"
               disabled={loading}
-              className="search-btn primary"
+              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {loading ? 'Searching...' : 'Search Users'}
             </button>
             <button
               type="button"
               onClick={clearSearch}
-              className="search-btn secondary"
+              className="px-6 py-3 bg-gray-500 text-white rounded-lg font-medium hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
             >
               Clear
             </button>
@@ -202,56 +212,56 @@ const Search = () => {
         </form>
       )}
 
-      {/* Loading and Error States */}
       {loading && (
-        <div className="loading-state">
-          <div className="spinner"></div>
-          <p>Loading...</p>
+        <div className="text-center py-8">
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          <p className="mt-2 text-gray-600">Loading...</p>
         </div>
       )}
 
       {error && (
-        <div className="error-state">
-          <p>Looks like we cant find the user</p>
-          <p className="error-detail">{error}</p>
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+          <p className="text-red-800 font-medium">Looks like we cant find the user</p>
+          <p className="text-red-600 text-sm mt-1">{error}</p>
         </div>
       )}
 
-      {/* Single User Result */}
       {userData && (
-        <div className="user-card detailed">
-          <div className="user-header">
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6 border-l-4 border-blue-500">
+          <div className="flex items-start space-x-6">
             <img
               src={userData.avatar_url}
               alt={`${userData.login}'s avatar`}
-              className="user-avatar large"
+              className="w-24 h-24 rounded-full border-4 border-gray-100"
             />
-            <div className="user-info">
-              <h2 className="user-name">{userData.name || userData.login}</h2>
-              <p className="user-bio">{userData.bio || 'No bio available'}</p>
-              <div className="user-stats">
-                <div className="stat">
-                  <span className="stat-label">Followers</span>
-                  <span className="stat-value">{userData.followers}</span>
+            <div className="flex-1">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                {userData.name || userData.login}
+              </h2>
+              <p className="text-gray-600 mb-4">{userData.bio || 'No bio available'}</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                  <p className="text-sm text-gray-500">Followers</p>
+                  <p className="text-lg font-semibold text-gray-900">{userData.followers}</p>
                 </div>
-                <div className="stat">
-                  <span className="stat-label">Following</span>
-                  <span className="stat-value">{userData.following}</span>
+                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                  <p className="text-sm text-gray-500">Following</p>
+                  <p className="text-lg font-semibold text-gray-900">{userData.following}</p>
                 </div>
-                <div className="stat">
-                  <span className="stat-label">Repositories</span>
-                  <span className="stat-value">{userData.public_repos}</span>
+                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                  <p className="text-sm text-gray-500">Repositories</p>
+                  <p className="text-lg font-semibold text-gray-900">{userData.public_repos}</p>
                 </div>
-                <div className="stat">
-                  <span className="stat-label">Location</span>
-                  <span className="stat-value">{userData.location || 'Not specified'}</span>
+                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                  <p className="text-sm text-gray-500">Location</p>
+                  <p className="text-lg font-semibold text-gray-900">{userData.location || 'Not specified'}</p>
                 </div>
               </div>
               <a
                 href={userData.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="profile-link"
+                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
               >
                 View GitHub Profile
               </a>
@@ -260,23 +270,24 @@ const Search = () => {
         </div>
       )}
 
-      {/* Advanced Search Results */}
       {searchResults.length > 0 && (
-        <div className="search-results">
-          <div className="results-header">
-            <h3>Search Results ({totalResults} users found)</h3>
+        <div className="mb-6">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-semibold text-gray-900">
+              Search Results ({totalResults} users found)
+            </h3>
           </div>
-          <div className="results-grid">
+          <div className="grid gap-4">
             {searchResults.map((user, index) => (
               <UserCard key={`${user.id}-${index}`} user={user} />
             ))}
           </div>
           {hasNextPage && (
-            <div className="load-more-container">
+            <div className="text-center mt-6">
               <button
                 onClick={loadMore}
                 disabled={loading}
-                className="load-more-btn"
+                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? 'Loading...' : 'Load More'}
               </button>
@@ -288,7 +299,6 @@ const Search = () => {
   );
 };
 
-// User Card Component for search results
 const UserCard = ({ user }) => {
   const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -312,38 +322,38 @@ const UserCard = ({ user }) => {
   }, [user.login]);
 
   return (
-    <div className="result-card">
-      <div className="card-content">
+    <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow border">
+      <div className="flex items-center space-x-4">
         <img
           src={user.avatar_url}
           alt={`${user.login}'s avatar`}
-          className="card-avatar"
+          className="w-16 h-16 rounded-full border-2 border-gray-200"
         />
-        <div className="card-info">
-          <h4 className="card-username">{user.login}</h4>
+        <div className="flex-1">
+          <h4 className="text-lg font-semibold text-gray-900">{user.login}</h4>
           {userDetails && (
-            <div className="card-details">
+            <div className="mt-2 space-y-1">
               {userDetails.name && (
-                <p className="card-name">{userDetails.name}</p>
+                <p className="text-gray-600 font-medium">{userDetails.name}</p>
               )}
               {userDetails.location && (
-                <p className="card-location">📍 {userDetails.location}</p>
+                <p className="text-sm text-gray-500">📍 {userDetails.location}</p>
               )}
-              <div className="card-stats">
-                <span className="stat-item">👥 {userDetails.followers} followers</span>
-                <span className="stat-item">📚 {userDetails.public_repos} repos</span>
+              <div className="flex space-x-4 text-sm text-gray-500">
+                <span>👥 {userDetails.followers} followers</span>
+                <span>📚 {userDetails.public_repos} repos</span>
               </div>
             </div>
           )}
           {loading && (
-            <p className="card-loading">Loading details...</p>
+            <p className="text-sm text-gray-500 mt-1">Loading details...</p>
           )}
         </div>
         <a
           href={user.html_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="card-link"
+          className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium whitespace-nowrap"
         >
           View Profile
         </a>
