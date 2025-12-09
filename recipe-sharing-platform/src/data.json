@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "title": "Spaghetti Carbonara",
+    "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
+    "image": "https://images.unsplash.com/photo-1621996346565-e3dbc353d2a5?w=400&h=300&fit=crop",
+    "prepTime": "20 min",
+    "difficulty": "Medium"
+  },
+  {
+    "id": 2,
+    "title": "Chicken Tikka Masala",
+    "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
+    "image": "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w-400&h=300&fit=crop",
+    "prepTime": "45 min",
+    "difficulty": "Medium"
+  },
+  {
+    "id": 3,
+    "title": "Greek Salad",
+    "summary": "Fresh and healthy salad with tomatoes, cucumbers, olives, and feta cheese.",
+    "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "prepTime": "15 min",
+    "difficulty": "Easy"
+  },
+  {
+    "id": 4,
+    "title": "Beef Bourguignon",
+    "summary": "French beef stew braised in red wine with carrots, onions, and mushrooms.",
+    "image": "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400&h=300&fit=crop",
+    "prepTime": "3 hours",
+    "difficulty": "Hard"
+  },
+  {
+    "id": 5,
+    "title": "Chocolate Chip Cookies",
+    "summary": "Classic homemade cookies with melty chocolate chips and crispy edges.",
+    "image": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&h=300&fit=crop",
+    "prepTime": "30 min",
+    "difficulty": "Easy"
+  },
+  {
+    "id": 6,
+    "title": "Vegetable Stir Fry",
+    "summary": "Quick and healthy stir fry with mixed vegetables and soy sauce.",
+    "image": "https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?w=400&h=300&fit=crop",
+    "prepTime": "25 min",
+    "difficulty": "Easy"
+  },
+  {
+    "id": 7,
+    "title": "Beef Tacos",
+    "summary": "Crispy taco shells filled with seasoned beef, lettuce, cheese, and salsa.",
+    "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop",
+    "prepTime": "35 min",
+    "difficulty": "Medium"
+  },
+  {
+    "id": 8,
+    "title": "Berry Smoothie Bowl",
+    "summary": "Thick smoothie bowl topped with fresh berries, granola, and honey.",
+    "image": "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop",
+    "prepTime": "10 min",
+    "difficulty": "Easy"
+  }
+]

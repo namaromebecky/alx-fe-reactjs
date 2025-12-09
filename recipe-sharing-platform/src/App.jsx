@@ -1,105 +1,85 @@
+import HomePage from './components/HomePage';
+
 function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50">
-      <div className="max-w-7xl mx-auto p-8">
-        <header className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-amber-600 mb-4">
-            🍳 Recipe Sharing Platform
-          </h1>
-          <p className="text-gray-600 text-lg">
-            A platform to share, discover, and create delicious recipes
-          </p>
-        </header>
-
-        <main>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Feature Cards */}
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-              <div className="text-amber-500 text-3xl mb-4">📖</div>
-              <h2 className="text-2xl font-semibold text-gray-800 mb-3">Browse Recipes</h2>
-              <p className="text-gray-600">
-                Discover thousands of recipes from around the world, curated by food enthusiasts.
-              </p>
+      {/* Navigation */}
+      <nav className="bg-white shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <div className="text-2xl font-bold text-amber-600">🍳 RecipeShare</div>
             </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-              <div className="text-amber-500 text-3xl mb-4">➕</div>
-              <h2 className="text-2xl font-semibold text-gray-800 mb-3">Share Your Recipes</h2>
-              <p className="text-gray-600">
-                Share your favorite recipes with the community and get feedback from other food lovers.
-              </p>
+            <div className="hidden md:flex space-x-8">
+              <a href="#" className="text-gray-700 hover:text-amber-600 font-medium">Home</a>
+              <a href="#" className="text-gray-700 hover:text-amber-600 font-medium">Recipes</a>
+              <a href="#" className="text-gray-700 hover:text-amber-600 font-medium">Categories</a>
+              <a href="#" className="text-gray-700 hover:text-amber-600 font-medium">Submit Recipe</a>
+              <a href="#" className="text-gray-700 hover:text-amber-600 font-medium">About</a>
             </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-              <div className="text-amber-500 text-3xl mb-4">❤️</div>
-              <h2 className="text-2xl font-semibold text-gray-800 mb-3">Save Favorites</h2>
-              <p className="text-gray-600">
-                Save your favorite recipes to your personal collection for easy access anytime.
-              </p>
+            <div className="flex items-center space-x-4">
+              <button className="px-4 py-2 text-gray-700 hover:text-amber-600">
+                🔍
+              </button>
+              <button className="px-6 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors">
+                Login
+              </button>
             </div>
           </div>
+        </div>
+      </nav>
 
-          {/* Tailwind Verification Section */}
-          <div className="mt-16 p-6 bg-gradient-to-r from-green-50 to-emerald-100 rounded-2xl border border-green-200">
-            <h2 className="text-2xl font-bold text-green-800 mb-4">
-              ✅ Tailwind CSS Successfully Integrated!
-            </h2>
-            <div className="space-y-3">
-              <p className="text-green-700">
-                This application uses Tailwind CSS for styling. Below are some Tailwind classes in action:
+      {/* Main Content - HomePage Component */}
+      <HomePage />
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <div className="text-2xl font-bold text-amber-400 mb-4">🍳 RecipeShare</div>
+              <p className="text-gray-400">
+                A platform for food lovers to share and discover amazing recipes from around the world.
               </p>
-              <div className="flex flex-wrap gap-3 mt-4">
-                <span className="px-4 py-2 bg-amber-500 text-white rounded-lg font-medium">
-                  bg-amber-500
-                </span>
-                <span className="px-4 py-2 bg-green-500 text-white rounded-lg font-medium">
-                  bg-green-500
-                </span>
-                <span className="px-4 py-2 bg-blue-500 text-white rounded-lg font-medium">
-                  bg-blue-500
-                </span>
-                <span className="px-4 py-2 bg-red-500 text-white rounded-lg font-medium">
-                  bg-red-500
-                </span>
-                <span className="px-4 py-2 bg-purple-500 text-white rounded-lg font-medium">
-                  bg-purple-500
-                </span>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#" className="hover:text-amber-400">Home</a></li>
+                <li><a href="#" className="hover:text-amber-400">Browse Recipes</a></li>
+                <li><a href="#" className="hover:text-amber-400">Submit Recipe</a></li>
+                <li><a href="#" className="hover:text-amber-400">Community</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Categories</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#" className="hover:text-amber-400">Vegetarian</a></li>
+                <li><a href="#" className="hover:text-amber-400">Desserts</a></li>
+                <li><a href="#" className="hover:text-amber-400">Quick Meals</a></li>
+                <li><a href="#" className="hover:text-amber-400">Healthy</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Newsletter</h4>
+              <p className="text-gray-400 mb-4">Subscribe to get weekly recipe updates</p>
+              <div className="flex">
+                <input 
+                  type="email" 
+                  placeholder="Your email"
+                  className="px-4 py-2 rounded-l-lg flex-grow text-gray-900"
+                />
+                <button className="px-4 py-2 bg-amber-500 text-white rounded-r-lg hover:bg-amber-600">
+                  Subscribe
+                </button>
               </div>
             </div>
           </div>
-
-          {/* Project Setup Info */}
-          <div className="mt-12 p-6 bg-gray-50 rounded-xl">
-            <h3 className="text-xl font-semibold text-gray-800 mb-3">
-              🚀 Project Setup Complete
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h4 className="font-medium text-gray-700 mb-2">Technologies Used:</h4>
-                <ul className="text-gray-600 space-y-1">
-                  <li>• React with Vite</li>
-                  <li>• Tailwind CSS</li>
-                  <li>• PostCSS & Autoprefixer</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-medium text-gray-700 mb-2">Next Steps:</h4>
-                <ul className="text-gray-600 space-y-1">
-                  <li>• Create recipe components</li>
-                  <li>• Implement routing</li>
-                  <li>• Add recipe form</li>
-                  <li>• Build recipe details page</li>
-                </ul>
-              </div>
-            </div>
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
+            <p>© 2024 RecipeShare. All rights reserved. | ALX Frontend Project</p>
           </div>
-        </main>
-
-        <footer className="mt-16 pt-8 border-t border-gray-200 text-center text-gray-500">
-          <p>Recipe Sharing Platform • Built with React & Tailwind CSS</p>
-          <p className="text-sm mt-2">ALX Frontend Specialization Project</p>
-        </footer>
-      </div>
+        </div>
+      </footer>
     </div>
   );
 }
