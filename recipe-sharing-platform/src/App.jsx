@@ -1,12 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import RecipeDetail from './components/RecipeDetail';
+import AddRecipeForm from './components/AddRecipeForm';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50">
-        {/* Navigation - Now inside Router */}
+        {/* Navigation */}
         <nav className="bg-white shadow-lg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
@@ -17,7 +18,7 @@ function App() {
                 <a href="/" className="text-gray-700 hover:text-amber-600 font-medium">Home</a>
                 <a href="#" className="text-gray-700 hover:text-amber-600 font-medium">Recipes</a>
                 <a href="#" className="text-gray-700 hover:text-amber-600 font-medium">Categories</a>
-                <a href="#" className="text-gray-700 hover:text-amber-600 font-medium">Submit Recipe</a>
+                <a href="/add-recipe" className="text-gray-700 hover:text-amber-600 font-medium">Submit Recipe</a>
                 <a href="#" className="text-gray-700 hover:text-amber-600 font-medium">About</a>
               </div>
               <div className="flex items-center space-x-4">
@@ -36,6 +37,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/recipe/:id" element={<RecipeDetail />} />
+          <Route path="/add-recipe" element={<AddRecipeForm />} />
         </Routes>
 
         {/* Footer */}
@@ -53,7 +55,7 @@ function App() {
                 <ul className="space-y-2 text-gray-400">
                   <li><a href="/" className="hover:text-amber-400">Home</a></li>
                   <li><a href="#" className="hover:text-amber-400">Browse Recipes</a></li>
-                  <li><a href="#" className="hover:text-amber-400">Submit Recipe</a></li>
+                  <li><a href="/add-recipe" className="hover:text-amber-400">Submit Recipe</a></li>
                   <li><a href="#" className="hover:text-amber-400">Community</a></li>
                 </ul>
               </div>

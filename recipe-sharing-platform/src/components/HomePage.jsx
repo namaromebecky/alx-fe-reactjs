@@ -151,9 +151,12 @@ const HomePage = () => {
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
             Join our community of food enthusiasts and share your culinary creations with the world.
           </p>
-          <button className="px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+          <Link 
+            to="/add-recipe"
+            className="inline-block px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+          >
             Share Your Recipe
-          </button>
+          </Link>
         </div>
       </div>
     </div>
