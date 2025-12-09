@@ -3,64 +3,139 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://images.unsplash.com/photo-1621996346565-e3dbc353d2a5?w=400&h=300&fit=crop",
+    "image": "https://images.unsplash.com/photo-1621996346565-e3dbc353d2a5?w=800&h=500&fit=crop",
     "prepTime": "20 min",
-    "difficulty": "Medium"
+    "cookTime": "15 min",
+    "totalTime": "35 min",
+    "difficulty": "Medium",
+    "servings": 4,
+    "category": "Pasta",
+    "author": "Maria Rossi",
+    "authorAvatar": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop",
+    "rating": 4.8,
+    "reviews": 124,
+    "ingredients": [
+      "400g spaghetti",
+      "200g pancetta or guanciale, diced",
+      "4 large eggs",
+      "100g Pecorino Romano cheese, grated",
+      "100g Parmesan cheese, grated",
+      "Freshly ground black pepper",
+      "Salt to taste",
+      "2 cloves garlic (optional)",
+      "Fresh parsley for garnish"
+    ],
+    "instructions": [
+      "Bring a large pot of salted water to boil. Cook spaghetti according to package directions until al dente.",
+      "While pasta cooks, heat a large pan over medium heat. Add pancetta and cook until crispy (5-7 minutes).",
+      "In a bowl, whisk together eggs, grated cheeses, and a generous amount of black pepper.",
+      "Reserve 1 cup of pasta water before draining the spaghetti.",
+      "Add drained spaghetti to the pan with pancetta (remove from heat).",
+      "Quickly pour the egg mixture over the hot pasta, tossing continuously to create a creamy sauce.",
+      "Add reserved pasta water as needed to achieve desired consistency.",
+      "Serve immediately with extra cheese and black pepper."
+    ],
+    "nutrition": {
+      "calories": 650,
+      "protein": "32g",
+      "carbs": "75g",
+      "fat": "25g"
+    },
+    "tags": ["Italian", "Pasta", "Quick", "Comfort Food"]
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
     "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
-    "image": "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w-400&h=300&fit=crop",
-    "prepTime": "45 min",
-    "difficulty": "Medium"
+    "image": "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=800&h=500&fit=crop",
+    "prepTime": "30 min",
+    "cookTime": "45 min",
+    "totalTime": "1 hour 15 min",
+    "difficulty": "Medium",
+    "servings": 6,
+    "category": "Curry",
+    "author": "Raj Patel",
+    "authorAvatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+    "rating": 4.9,
+    "reviews": 89,
+    "ingredients": [
+      "800g chicken breast, cut into chunks",
+      "1 cup plain yogurt",
+      "2 tbsp lemon juice",
+      "2 tbsp ginger-garlic paste",
+      "2 tbsp vegetable oil",
+      "2 onions, finely chopped",
+      "400g canned tomatoes, pureed",
+      "1 cup heavy cream",
+      "2 tbsp butter",
+      "2 tsp garam masala",
+      "1 tsp turmeric powder",
+      "1 tsp cumin powder",
+      "1 tsp coriander powder",
+      "1 tsp chili powder (adjust to taste)",
+      "Salt to taste",
+      "Fresh cilantro for garnish"
+    ],
+    "instructions": [
+      "Marinate chicken with yogurt, lemon juice, ginger-garlic paste, and 1 tsp each of turmeric, cumin, and coriander powder for at least 2 hours.",
+      "Preheat oven to 220°C (425°F). Thread chicken onto skewers and bake for 15-20 minutes until slightly charred.",
+      "Heat oil in a large pan. Sauté onions until golden brown.",
+      "Add remaining spices and cook for 1-2 minutes until fragrant.",
+      "Add tomato puree and cook for 10 minutes until oil separates.",
+      "Add cream and butter, stirring continuously.",
+      "Add grilled chicken pieces and simmer for 10 minutes.",
+      "Garnish with fresh cilantro and serve with rice or naan."
+    ],
+    "nutrition": {
+      "calories": 420,
+      "protein": "38g",
+      "carbs": "12g",
+      "fat": "24g"
+    },
+    "tags": ["Indian", "Spicy", "Creamy", "Grilled"]
   },
   {
     "id": 3,
     "title": "Greek Salad",
     "summary": "Fresh and healthy salad with tomatoes, cucumbers, olives, and feta cheese.",
-    "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=500&fit=crop",
     "prepTime": "15 min",
-    "difficulty": "Easy"
-  },
-  {
-    "id": 4,
-    "title": "Beef Bourguignon",
-    "summary": "French beef stew braised in red wine with carrots, onions, and mushrooms.",
-    "image": "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400&h=300&fit=crop",
-    "prepTime": "3 hours",
-    "difficulty": "Hard"
-  },
-  {
-    "id": 5,
-    "title": "Chocolate Chip Cookies",
-    "summary": "Classic homemade cookies with melty chocolate chips and crispy edges.",
-    "image": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&h=300&fit=crop",
-    "prepTime": "30 min",
-    "difficulty": "Easy"
-  },
-  {
-    "id": 6,
-    "title": "Vegetable Stir Fry",
-    "summary": "Quick and healthy stir fry with mixed vegetables and soy sauce.",
-    "image": "https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?w=400&h=300&fit=crop",
-    "prepTime": "25 min",
-    "difficulty": "Easy"
-  },
-  {
-    "id": 7,
-    "title": "Beef Tacos",
-    "summary": "Crispy taco shells filled with seasoned beef, lettuce, cheese, and salsa.",
-    "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop",
-    "prepTime": "35 min",
-    "difficulty": "Medium"
-  },
-  {
-    "id": 8,
-    "title": "Berry Smoothie Bowl",
-    "summary": "Thick smoothie bowl topped with fresh berries, granola, and honey.",
-    "image": "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop",
-    "prepTime": "10 min",
-    "difficulty": "Easy"
+    "cookTime": "0 min",
+    "totalTime": "15 min",
+    "difficulty": "Easy",
+    "servings": 4,
+    "category": "Salad",
+    "author": "Sophia Kostas",
+    "authorAvatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
+    "rating": 4.5,
+    "reviews": 67,
+    "ingredients": [
+      "4 large tomatoes, cut into wedges",
+      "1 cucumber, sliced",
+      "1 red onion, thinly sliced",
+      "1 green bell pepper, sliced",
+      "200g feta cheese, cubed",
+      "1/2 cup Kalamata olives",
+      "2 tbsp extra virgin olive oil",
+      "1 tbsp red wine vinegar",
+      "1 tsp dried oregano",
+      "Salt and pepper to taste",
+      "Fresh oregano leaves for garnish"
+    ],
+    "instructions": [
+      "Combine tomatoes, cucumber, red onion, and bell pepper in a large bowl.",
+      "Add olives and gently toss.",
+      "Arrange feta cheese on top of the vegetables.",
+      "Whisk together olive oil, red wine vinegar, dried oregano, salt, and pepper.",
+      "Drizzle dressing over the salad.",
+      "Garnish with fresh oregano leaves and serve immediately."
+    ],
+    "nutrition": {
+      "calories": 280,
+      "protein": "8g",
+      "carbs": "15g",
+      "fat": "22g"
+    },
+    "tags": ["Healthy", "Vegetarian", "Quick", "Mediterranean"]
   }
 ]

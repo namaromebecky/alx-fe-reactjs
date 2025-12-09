@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Load recipe data from data.json
     const loadRecipes = async () => {
       try {
         const response = await fetch('/data.json');
@@ -100,9 +100,12 @@ const HomePage = () => {
                   </p>
                   
                   <div className="flex justify-between items-center">
-                    <button className="px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors duration-200 font-medium">
+                    <Link 
+                      to={`/recipe/${recipe.id}`}
+                      className="px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors duration-200 font-medium"
+                    >
                       View Recipe
-                    </button>
+                    </Link>
                     <div className="flex space-x-2">
                       <button className="p-2 text-gray-400 hover:text-red-500 transition-colors duration-200">
                         <span className="text-lg">❤️</span>
