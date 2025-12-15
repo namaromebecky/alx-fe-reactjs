@@ -1,6 +1,6 @@
 import React from 'react';
 import ControlledForm from './components/ControlledForm';
-import FormikForm from './components/formikForm';
+import FormikForm from "./components/formikForm";
 import './App.css';
 
 function App() {
