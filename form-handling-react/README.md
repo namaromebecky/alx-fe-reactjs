@@ -1,7 +1,12 @@
-# Form Handling in React
+# Form Handling Project
 
-Project demonstrating form handling with controlled components and Formik.
+This project contains form handling examples.
 
-## Files:
-- src/components/ControlledForm.jsx
-- src/components/formikForm.js
+Files:
+- ControlledForm.jsx
+- formikForm.js
+
+Requirements met:
+- Controlled components
+- Formik integration
+- Yup validation
