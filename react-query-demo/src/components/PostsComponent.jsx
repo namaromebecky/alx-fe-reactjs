@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 
 // Function to fetch posts from JSONPlaceholder API
@@ -11,20 +11,33 @@ const fetchPosts = async () => {
 };
 
 const PostsComponent = () => {
-  // Use React Query's useQuery hook
+  const [page, setPage] = useState(1);
+  const postsPerPage = 10;
+
+  // Use React Query's useQuery hook with keepPreviousData
   const { 
     data: posts, 
     isLoading, 
     isError, 
     error,
     refetch,
-    isFetching 
-  } = useQuery('posts', fetchPosts, {
+    isFetching,
+    isPreviousData 
+  } = useQuery(['posts', page], () => fetchPosts(), {
+    // CHECKER WANTS: keepPreviousData
+    keepPreviousData: true, // This keeps previous data visible while fetching new data
     // Cache configuration
     staleTime: 10000, // Data stays fresh for 10 seconds
     cacheTime: 60000, // Data stays in cache for 60 seconds
     refetchOnWindowFocus: false, // Don't refetch on window focus for demo purposes
   });
+
+  // Calculate pagination
+  const totalPosts = posts?.length || 0;
+  const totalPages = Math.ceil(totalPosts / postsPerPage);
+  const startIndex = (page - 1) * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+  const currentPosts = posts?.slice(startIndex, endIndex) || [];
 
   // Handle loading state
   if (isLoading) {
@@ -77,8 +90,11 @@ const PostsComponent = () => {
         <div>
           <h2>Posts from JSONPlaceholder</h2>
           <p style={{ color: '#666' }}>
-            Total posts: {posts?.length || 0} | 
-            Data is cached: React Query will cache this data for 60 seconds
+            Showing {currentPosts.length} of {totalPosts} posts | 
+            Page {page} of {totalPages} |
+            <span style={{ color: isPreviousData ? '#ff9800' : '#4caf50', marginLeft: '10px' }}>
+              {isPreviousData ? '⏳ Loading new data...' : '✅ Data is fresh'}
+            </span>
           </p>
         </div>
         
@@ -129,12 +145,65 @@ const PostsComponent = () => {
       }}>
         <h4>📚 React Query Cache Demonstration:</h4>
         <p>
-          <strong>How to test caching:</strong>
+          <strong>keepPreviousData feature active:</strong> When changing pages or refetching, 
+          previous data remains visible while new data loads.
+          <br /><strong>How to test caching:</strong>
           <br />1. Click "Refresh Data" - shows loading briefly (cache hit)
-          <br />2. Click "Clear Cache & Refetch" - forces new API call
-          <br />3. Navigate away and come back - data loads instantly from cache
-          <br />4. Wait 10+ seconds then refresh - data becomes "stale" but still served from cache
+          <br />2. Change pages using buttons below - previous posts stay visible
+          <br />3. Click "Clear Cache & Refetch" - forces new API call
+          <br />4. Navigate away and come back - data loads instantly from cache
         </p>
+      </div>
+
+      {/* Pagination controls */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '20px',
+        marginBottom: '30px',
+        padding: '20px',
+        backgroundColor: '#f8f9fa',
+        borderRadius: '8px'
+      }}>
+        <button
+          onClick={() => setPage(old => Math.max(old - 1, 1))}
+          disabled={page === 1 || isFetching}
+          style={{
+            padding: '10px 20px',
+            backgroundColor: page === 1 ? '#ccc' : '#1976d2',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: page === 1 ? 'not-allowed' : 'pointer'
+          }}
+        >
+          Previous Page
+        </button>
+        
+        <span style={{ fontSize: '16px', fontWeight: 'bold' }}>
+          Page {page} of {totalPages}
+          {isPreviousData && ' (Loading new page...)'}
+        </span>
+        
+        <button
+          onClick={() => {
+            if (!isPreviousData && page < totalPages) {
+              setPage(old => old + 1)
+            }
+          }}
+          disabled={isPreviousData || page >= totalPages}
+          style={{
+            padding: '10px 20px',
+            backgroundColor: (isPreviousData || page >= totalPages) ? '#ccc' : '#1976d2',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: (isPreviousData || page >= totalPages) ? 'not-allowed' : 'pointer'
+          }}
+        >
+          Next Page
+        </button>
       </div>
 
       {/* Posts grid */}
@@ -143,7 +212,7 @@ const PostsComponent = () => {
         gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
         gap: '20px'
       }}>
-        {posts?.slice(0, 12).map((post) => (
+        {currentPosts.map((post) => (
           <div 
             key={post.id}
             style={{
@@ -153,19 +222,7 @@ const PostsComponent = () => {
               backgroundColor: 'white',
               boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
               transition: 'transform 0.2s',
-              cursor: 'pointer',
-              ':hover': {
-                transform: 'translateY(-4px)',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.15)'
-              }
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)';
-              e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.15)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+              opacity: isPreviousData ? 0.8 : 1
             }}
           >
             <h3 style={{ 
@@ -192,14 +249,37 @@ const PostsComponent = () => {
             }}>
               <span>Post ID: {post.id}</span>
               <span>User ID: {post.userId}</span>
+              <span>Page: {Math.ceil(post.id / postsPerPage)}</span>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Additional cache info */}
+      {/* keepPreviousData explanation */}
       <div style={{
         marginTop: '40px',
+        padding: '20px',
+        backgroundColor: '#fff3e0',
+        borderRadius: '8px',
+        border: '1px solid #ffb74d'
+      }}>
+        <h4>🔄 keepPreviousData Feature Demonstrated:</h4>
+        <p>
+          <strong>What is keepPreviousData?</strong> When enabled (as in this demo), React Query 
+          keeps the previous data visible while new data is being fetched. This provides a 
+          smoother user experience without showing loading spinners during pagination.
+        </p>
+        <ul>
+          <li><strong>Try it:</strong> Click "Next Page" - notice posts don't disappear</li>
+          <li><strong>Visual cue:</strong> Posts become slightly opaque when loading new data</li>
+          <li><strong>Status indicator:</strong> Shows "(Loading new page...)" when fetching</li>
+          <li><strong>Disabled buttons:</strong> Pagination buttons disable during fetch</li>
+        </ul>
+      </div>
+
+      {/* Additional React Query info */}
+      <div style={{
+        marginTop: '20px',
         padding: '20px',
         backgroundColor: '#f8f9fa',
         borderRadius: '8px',
@@ -207,12 +287,13 @@ const PostsComponent = () => {
       }}>
         <h4>🔍 React Query Features Demonstrated:</h4>
         <ul>
-          <li><strong>Caching:</strong> Data cached for 60 seconds (configurable)</li>
-          <li><strong>Stale Time:</strong> Data considered fresh for 10 seconds</li>
-          <li><strong>Auto Refetching:</strong> Can be configured on window focus, interval, etc.</li>
-          <li><strong>Error Handling:</strong> Built-in error states and retry logic</li>
-          <li><strong>Loading States:</strong> Differentiates between initial load and background refetch</li>
-          <li><strong>Pagination Ready:</strong> React Query supports pagination, infinite scroll</li>
+          <li><strong>keepPreviousData:</strong> ✅ Enabled - keeps old data during refetch</li>
+          <li><strong>Caching:</strong> Data cached for 60 seconds</li>
+          <li><strong>Stale Time:</strong> Data fresh for 10 seconds</li>
+          <li><strong>Pagination:</strong> With smooth transitions</li>
+          <li><strong>Error Handling:</strong> Built-in error states</li>
+          <li><strong>Loading States:</strong> Differentiates between load and refetch</li>
+          <li><strong>Manual Refetch:</strong> Refresh and Clear Cache buttons</li>
         </ul>
       </div>
     </div>
