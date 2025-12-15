@@ -4,9 +4,14 @@ import * as Yup from 'yup';
 
 const FormikForm = () => {
   const validationSchema = Yup.object({
-    username: Yup.string().required('Username required'),
-    email: Yup.string().email('Invalid email').required('Email required'),
-    password: Yup.string().min(6, 'Min 6 characters').required('Password required')
+    username: Yup.string()
+      .required('Username is required'),
+    email: Yup.string()
+      .email('Invalid email address')
+      .required('Email is required'),
+    password: Yup.string()
+      .min(6, 'Password must be at least 6 characters')
+      .required('Password is required')
   });
 
   const initialValues = {
@@ -15,32 +20,93 @@ const FormikForm = () => {
     password: ''
   };
 
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    try {
+      // Mock API call as mentioned in requirements
+      const response = await fetch('https://jsonplaceholder.typicode.com/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values)
+      });
+      
+      if (response.ok) {
+        alert('Registration successful with Formik!');
+        resetForm();
+      }
+    } catch (error) {
+      console.error('Registration failed:', error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    >
-      <Form>
-        <div>
-          <Field name="username" placeholder="Username" />
-          <ErrorMessage name="username" />
-        </div>
-        <div>
-          <Field name="email" type="email" placeholder="Email" />
-          <ErrorMessage name="email" />
-        </div>
-        <div>
-          <Field name="password" type="password" placeholder="Password" />
-          <ErrorMessage name="password" />
-        </div>
-        <button type="submit">Submit</button>
-      </Form>
-    </Formik>
+    <div style={{ maxWidth: '400px', margin: '20px auto', padding: '20px' }}>
+      <h2>User Registration (Formik)</h2>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ isSubmitting }) => (
+          <Form>
+            <div style={{ marginBottom: '15px' }}>
+              <label htmlFor="username">Username:</label>
+              <Field
+                type="text"
+                id="username"
+                name="username"
+                style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+              />
+              <ErrorMessage name="username">
+                {msg => <div style={{ color: 'red', fontSize: '12px' }}>{msg}</div>}
+              </ErrorMessage>
+            </div>
+
+            <div style={{ marginBottom: '15px' }}>
+              <label htmlFor="email">Email:</label>
+              <Field
+                type="email"
+                id="email"
+                name="email"
+                style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+              />
+              <ErrorMessage name="email">
+                {msg => <div style={{ color: 'red', fontSize: '12px' }}>{msg}</div>}
+              </ErrorMessage>
+            </div>
+
+            <div style={{ marginBottom: '15px' }}>
+              <label htmlFor="password">Password:</label>
+              <Field
+                type="password"
+                id="password"
+                name="password"
+                style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+              />
+              <ErrorMessage name="password">
+                {msg => <div style={{ color: 'red', fontSize: '12px' }}>{msg}</div>}
+              </ErrorMessage>
+            </div>
+
+            <button 
+              type="submit" 
+              disabled={isSubmitting}
+              style={{ 
+                padding: '10px 20px', 
+                backgroundColor: isSubmitting ? '#ccc' : '#007bff', 
+                color: 'white', 
+                border: 'none' 
+              }}
+            >
+              {isSubmitting ? 'Registering...' : 'Register'}
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </div>
   );
 };
 
