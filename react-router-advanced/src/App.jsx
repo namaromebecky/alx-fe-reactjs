@@ -1,63 +1,66 @@
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
-import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { AuthProvider, useAuth } from './hooks/useAuth';
+import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   return (
-    <Router>
-      <div className="app">
-        <nav>
-          <h1>React Router Advanced</h1>
-          <div className="nav-links">
-            <Link to="/">Home</Link>
-            <Link to="/dashboard">Dashboard</Link>
-            <Link to="/profile">Profile</Link>
-            <Link to="/blog">Blog</Link>
-            <button onClick={() => setIsAuthenticated(!isAuthenticated)}>
-              {isAuthenticated ? 'Logout' : 'Login'}
-            </button>
-            <span className="auth-status">
-              Status: {isAuthenticated ? 'Logged In' : 'Logged Out'}
-            </span>
-          </div>
-        </nav>
-
-        <div className="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            
-            {/* FIXED: Changed from /blogs to /blog for the checker */}
-            <Route path="/blog" element={<BlogList />} />
-            <Route path="/blog/:id" element={<BlogPost />} />
-            
-            <Route 
-              path="/dashboard" 
-              element={
-                <ProtectedRoute isAuthenticated={isAuthenticated}>
-                  <Dashboard />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/profile/*" 
-              element={
-                <ProtectedRoute isAuthenticated={isAuthenticated}>
-                  <Profile />
-                </ProtectedRoute>
-              } 
-            />
-          </Routes>
-        </div>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthProvider>
   );
 }
 
-// Protected Route Component
-function ProtectedRoute({ children, isAuthenticated }) {
-  return isAuthenticated ? children : <Navigate to="/" />;
+function AppContent() {
+  const { isAuthenticated, login, logout } = useAuth();
+
+  return (
+    <div className="app">
+      <nav>
+        <h1>React Router Advanced</h1>
+        <div className="nav-links">
+          <Link to="/">Home</Link>
+          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/profile">Profile</Link>
+          <Link to="/blog">Blog</Link>
+          <button onClick={isAuthenticated ? logout : login}>
+            {isAuthenticated ? 'Logout' : 'Login'}
+          </button>
+          <span className="auth-status">
+            Status: {isAuthenticated ? 'Logged In' : 'Logged Out'}
+          </span>
+        </div>
+      </nav>
+
+      <div className="content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
+          
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } 
+          />
+          
+          <Route 
+            path="/profile/*" 
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            } 
+          />
+        </Routes>
+      </div>
+    </div>
+  );
 }
 
 // Home Component
@@ -65,12 +68,7 @@ function Home() {
   return (
     <div className="page">
       <h2>Welcome to Advanced React Router Demo</h2>
-      <p>This project demonstrates:</p>
-      <ul>
-        <li>✅ Nested Routes (Profile section)</li>
-        <li>✅ Dynamic Routes (/blog/:id)</li>
-        <li>✅ Protected Routes (Dashboard & Profile)</li>
-      </ul>
+      <p>This project demonstrates advanced React Router features.</p>
     </div>
   );
 }
@@ -80,7 +78,7 @@ function Dashboard() {
   return (
     <div className="page">
       <h2>Dashboard</h2>
-      <p className="protected-message">✅ This is a protected route - only visible when logged in</p>
+      <p className="protected-message">✅ Protected route using useAuth hook</p>
     </div>
   );
 }
@@ -128,34 +126,28 @@ function ProfileSettings() {
   );
 }
 
-// Blog List Component - Updated to use /blog instead of /blogs
+// Blog List Component
 function BlogList() {
   return (
     <div className="page">
       <h2>Blog Posts</h2>
-      <p className="dynamic-route-info">🔗 Dynamic routing example: /blog/:id</p>
+      <p className="dynamic-route-info">🔗 Dynamic routing: /blog/:id</p>
       <ul className="blog-list">
-        <li><Link to="/blog/1">Getting Started with React Router</Link></li>
-        <li><Link to="/blog/2">Advanced State Management</Link></li>
-        <li><Link to="/blog/3">TypeScript with React</Link></li>
+        <li><Link to="/blog/1">Post 1</Link></li>
+        <li><Link to="/blog/2">Post 2</Link></li>
+        <li><Link to="/blog/3">Post 3</Link></li>
       </ul>
-      <div className="route-info">
-        <p><strong>Dynamic Route Pattern:</strong> <code>/blog/:id</code></p>
-        <p>The checker specifically requires this exact pattern</p>
-      </div>
     </div>
   );
 }
 
-// Blog Post Component - Updated route
+// Blog Post Component
 function BlogPost() {
   const { id } = require('react-router-dom').useParams();
   return (
     <div className="page">
       <h2>Blog Post {id}</h2>
-      <p>This demonstrates dynamic routing with ID: {id}</p>
-      <p>URL: /blog/{id}</p>
-      <Link to="/blog">← Back to Blog List</Link>
+      <p>Dynamic route: /blog/{id}</p>
     </div>
   );
 }
