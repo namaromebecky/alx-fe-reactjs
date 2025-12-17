@@ -1,42 +1,223 @@
-#root {
-  max-width: 1280px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.app {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+nav {
+  background: #2d3748;
+  color: white;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+nav h1 {
+  color: white;
+  font-size: 1.8rem;
+  margin-right: 20px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+nav a:hover {
+  background: #4a5568;
+}
+
+button {
+  padding: 10px 20px;
+  background: #48bb78;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+button:hover {
+  background: #38a169;
+  transform: translateY(-2px);
+}
+
+.auth-status {
+  font-size: 14px;
+  color: #a0aec0;
+  margin-left: 10px;
+}
+
+.content {
+  padding: 20px;
+}
+
+.page {
+  padding: 20px;
+}
+
+.instructions {
+  background: #f7fafc;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.instructions h3 {
+  color: #2d3748;
+  margin-bottom: 10px;
+}
+
+.instructions ul, .instructions ol {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.instructions li {
+  margin-bottom: 8px;
+}
+
+.protected-message {
+  background: #c6f6d5;
+  color: #22543d;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 15px 0;
+}
+
+.profile-nav {
+  background: #edf2f7;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  display: flex;
+  gap: 15px;
+}
+
+.profile-nav a {
+  color: #2d3748;
+  text-decoration: none;
+  padding: 10px 20px;
+  background: white;
+  border-radius: 6px;
+  border: 2px solid #e2e8f0;
+}
+
+.profile-nav a:hover {
+  border-color: #667eea;
+  background: #f7fafc;
+}
+
+.profile-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #e2e8f0;
+  margin-top: 20px;
+}
+
+.blog-list {
+  list-style: none;
+  padding: 0;
+}
+
+.blog-list li {
+  margin: 15px 0;
+  padding: 15px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.blog-list a {
+  color: #2d3748;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.blog-list a:hover {
+  color: #667eea;
+}
+
+.dynamic-route-info {
+  background: #bee3f8;
+  color: #2c5282;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 15px 0;
+}
+
+.route-info {
+  background: #e6fffa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 30px;
+}
+
+.route-info code {
+  background: #234e52;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+h1, h2, h3 {
+  color: #2d3748;
+  margin-bottom: 15px;
+}
+
+p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 15px;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  
+  nav a, button {
+    width: 100%;
+    text-align: center;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }

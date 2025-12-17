@@ -1,126 +1,161 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
-import Home from './components/Home';
-import About from './components/About';
-import Profile from './components/Profile';
+import { useState } from 'react';
+import './App.css';
 import BlogPost from './components/BlogPost';
-import ProtectedRoute from './components/ProtectedRoute';
-import Login from './components/Login';
-import Dashboard from './components/Dashboard';
-import NotFound from './components/NotFound';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   return (
     <Router>
-      <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
-        {/* Navigation Header */}
-        <nav style={{
-          backgroundColor: '#1976d2',
-          padding: '1rem 2rem',
-          color: 'white',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-        }}>
-          <div style={{
-            maxWidth: '1200px',
-            margin: '0 auto',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-              <h1 style={{ margin: 0, fontSize: '1.5rem' }}>React Router Advanced</h1>
-              <div style={{ display: 'flex', gap: '1rem' }}>
-                <Link to="/" style={{ color: 'white', textDecoration: 'none', padding: '0.5rem 1rem', borderRadius: '4px' }}>
-                  Home
-                </Link>
-                <Link to="/about" style={{ color: 'white', textDecoration: 'none', padding: '0.5rem 1rem', borderRadius: '4px' }}>
-                  About
-                </Link>
-                <Link to="/profile" style={{ color: 'white', textDecoration: 'none', padding: '0.5rem 1rem', borderRadius: '4px' }}>
-                  Profile
-                </Link>
-                <Link to="/dashboard" style={{ color: 'white', textDecoration: 'none', padding: '0.5rem 1rem', borderRadius: '4px' }}>
-                  Dashboard
-                </Link>
-                <Link to="/blog/post-1" style={{ color: 'white', textDecoration: 'none', padding: '0.5rem 1rem', borderRadius: '4px' }}>
-                  Blog Post 1
-                </Link>
-                <Link to="/blog/post-2" style={{ color: 'white', textDecoration: 'none', padding: '0.5rem 1rem', borderRadius: '4px' }}>
-                  Blog Post 2
-                </Link>
-              </div>
-            </div>
-            <div>
-              <Link to="/login" style={{
-                color: 'white',
-                textDecoration: 'none',
-                padding: '0.5rem 1rem',
-                borderRadius: '4px',
-                border: '1px solid white',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>
-                Login
-              </Link>
-            </div>
+      <div className="app">
+        <nav>
+          <h1>React Router Advanced</h1>
+          <div className="nav-links">
+            <Link to="/">Home</Link>
+            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/profile">Profile</Link>
+            <Link to="/blogs">Blogs</Link>
+            <button onClick={() => setIsAuthenticated(!isAuthenticated)}>
+              {isAuthenticated ? 'Logout' : 'Login'}
+            </button>
+            <span className="auth-status">
+              Status: {isAuthenticated ? 'Logged In' : 'Logged Out'}
+            </span>
           </div>
         </nav>
 
-        {/* Main Content */}
-        <main style={{
-          maxWidth: '1200px',
-          margin: '2rem auto',
-          padding: '0 2rem'
-        }}>
+        <div className="content">
           <Routes>
-            {/* Public Routes */}
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/login" element={<Login />} />
-            
-            {/* Dynamic Routing for Blog Posts */}
-            <Route path="/blog/:postId" element={<BlogPost />} />
-            
-            {/* Protected Routes */}
-            <Route path="/profile/*" element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/dashboard" element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            } />
-            
-            {/* 404 Route */}
-            <Route path="*" element={<NotFound />} />
+            <Route path="/blogs" element={<BlogList />} />
+            <Route path="/blogs/:id" element={<BlogPost />} />
+            <Route 
+              path="/dashboard" 
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <Dashboard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/profile/*" 
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <Profile />
+                </ProtectedRoute>
+              } 
+            />
           </Routes>
-        </main>
-
-        {/* Footer */}
-        <footer style={{
-          backgroundColor: '#333',
-          color: 'white',
-          padding: '2rem',
-          marginTop: '3rem',
-          textAlign: 'center'
-        }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <p>React Router Advanced Demo - Demonstrating Nested, Dynamic, and Protected Routes</p>
-            <div style={{ marginTop: '1rem', fontSize: '0.9rem', color: '#aaa' }}>
-              <p>Features demonstrated:</p>
-              <ul style={{ listStyle: 'none', padding: 0, display: 'flex', justifyContent: 'center', gap: '2rem' }}>
-                <li>✓ Nested Routes</li>
-                <li>✓ Dynamic Routing</li>
-                <li>✓ Protected Routes</li>
-                <li>✓ Authentication Simulation</li>
-              </ul>
-            </div>
-          </div>
-        </footer>
+        </div>
       </div>
     </Router>
+  );
+}
+
+// Protected Route Component
+function ProtectedRoute({ children, isAuthenticated }) {
+  return isAuthenticated ? children : <Navigate to="/" />;
+}
+
+// Home Component
+function Home() {
+  return (
+    <div className="page">
+      <h2>Welcome to Advanced React Router Demo</h2>
+      <div className="instructions">
+        <h3>Features Implemented:</h3>
+        <ul>
+          <li><strong>Nested Routes:</strong> Profile → Details/Settings</li>
+          <li><strong>Dynamic Routes:</strong> /blogs/:id</li>
+          <li><strong>Protected Routes:</strong> Dashboard & Profile require login</li>
+        </ul>
+        <h3>How to Test:</h3>
+        <ol>
+          <li>Click "Login" button to authenticate</li>
+          <li>Try accessing Dashboard or Profile</li>
+          <li>Click on Profile to see nested routes</li>
+          <li>Go to Blogs and click on any post</li>
+          <li>Logout and try accessing protected routes</li>
+        </ol>
+      </div>
+    </div>
+  );
+}
+
+// Dashboard Component
+function Dashboard() {
+  return (
+    <div className="page">
+      <h2>Dashboard</h2>
+      <p className="protected-message">✅ This is a protected route - only visible when logged in</p>
+      <p>Dashboard content goes here...</p>
+    </div>
+  );
+}
+
+// Profile Component with Nested Routes
+function Profile() {
+  return (
+    <div className="page">
+      <h2>Profile Management</h2>
+      <p className="protected-message">✅ This is a protected route with nested navigation</p>
+      
+      <nav className="profile-nav">
+        <Link to="details">👤 Details</Link>
+        <Link to="settings">⚙️ Settings</Link>
+      </nav>
+      
+      <div className="profile-content">
+        <Routes>
+          <Route path="details" element={<ProfileDetails />} />
+          <Route path="settings" element={<ProfileSettings />} />
+          <Route path="/" element={<ProfileDetails />} />
+        </Routes>
+      </div>
+    </div>
+  );
+}
+
+function ProfileDetails() {
+  return (
+    <div>
+      <h3>Profile Details</h3>
+      <p>Name: John Doe</p>
+      <p>Email: john@example.com</p>
+      <p>Location: New York</p>
+    </div>
+  );
+}
+
+function ProfileSettings() {
+  return (
+    <div>
+      <h3>Profile Settings</h3>
+      <p>Theme: Dark Mode</p>
+      <p>Notifications: Enabled</p>
+      <p>Language: English</p>
+    </div>
+  );
+}
+
+// Blog List Component
+function BlogList() {
+  return (
+    <div className="page">
+      <h2>Blog Posts</h2>
+      <p className="dynamic-route-info">🔗 Click any post to see dynamic routing in action</p>
+      <ul className="blog-list">
+        <li><Link to="/blogs/1">Getting Started with React Router</Link></li>
+        <li><Link to="/blogs/2">Advanced State Management</Link></li>
+        <li><Link to="/blogs/3">TypeScript with React</Link></li>
+        <li><Link to="/blogs/4">Testing React Applications</Link></li>
+      </ul>
+      <div className="route-info">
+        <p><strong>Dynamic Route Pattern:</strong> <code>/blogs/:id</code></p>
+        <p>Each link above will navigate to a different URL based on the ID</p>
+      </div>
+    </div>
   );
 }
 
