@@ -1,19 +1,12 @@
-import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
-const ProtectedRoute = ({ children }) => {
-  const location = useLocation();
-  
-  // Simulate authentication check
-  // In a real app, this would check against auth context, Redux, or localStorage
-  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-  
+function ProtectedRoute({ children, isAuthenticated }) {
   if (!isAuthenticated) {
-    // Redirect to login page, saving the attempted location
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    // Redirect to home if not authenticated
+    return <Navigate to="/" replace />;
   }
-  
+
   return children;
-};
+}
 
 export default ProtectedRoute;

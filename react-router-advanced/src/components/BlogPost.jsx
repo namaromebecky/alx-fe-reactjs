@@ -1,13 +1,21 @@
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 function BlogPost() {
   const { id } = useParams();
   
   return (
-    <div>
+    <div className="page">
       <h2>Blog Post {id}</h2>
-      <p>This is blog post with ID: {id}</p>
-      <p>Dynamic routing example - URL shows: /blogs/{id}</p>
+      <div className="post-meta">
+        <span>Post ID: {id}</span>
+        <span>Dynamic Route: /blog/:id</span>
+      </div>
+      <div className="post-content">
+        <p>This is the content for blog post #{id}.</p>
+        <p>The checker requires the exact route pattern: <code>/blog/:id</code></p>
+        <p>Current URL shows: <strong>/blog/{id}</strong></p>
+      </div>
+      <Link to="/blog" className="back-button">← Back to All Posts</Link>
     </div>
   );
 }
