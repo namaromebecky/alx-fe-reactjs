@@ -1,24 +1,169 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-header {
-  background-color: #282c34;
-  padding: 20px;
-  color: white;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-.App-header h1 {
+.App {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.todo-app {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.todo-app h1 {
+  text-align: center;
+  color: #2d3748;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+}
+
+.add-todo-form {
+  display: flex;
+  gap: 10px;
   margin-bottom: 20px;
-  color: #61dafb;
 }
 
-.App-header p {
-  margin: 10px 0;
+.todo-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.todo-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.add-btn {
+  padding: 12px 25px;
+  background: #48bb78;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.add-btn:hover {
+  background: #38a169;
+  transform: translateY(-2px);
+}
+
+.stats {
+  background: #f7fafc;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #4a5568;
+}
+
+.todo-list {
+  list-style: none;
+  margin-bottom: 30px;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+  transition: all 0.3s;
+}
+
+.todo-item:hover {
+  background: #edf2f7;
+  transform: translateX(5px);
+}
+
+.todo-item.completed {
+  border-left-color: #48bb78;
+  opacity: 0.8;
+}
+
+.todo-text {
+  flex: 1;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
   font-size: 18px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.delete-btn:hover {
+  background: #fed7d7;
+  color: #e53e3e;
+}
+
+.empty-message {
+  text-align: center;
+  color: #a0aec0;
+  font-style: italic;
+  padding: 30px;
+  background: #f7fafc;
+  border-radius: 8px;
+}
+
+.instructions {
+  background: #fffaf0;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid #d69e2e;
+}
+
+.instructions h3 {
+  color: #744210;
+  margin-bottom: 10px;
+}
+
+.instructions ul {
+  margin-left: 20px;
+  color: #744210;
+}
+
+.instructions li {
+  margin-bottom: 5px;
+}
+
+@media (max-width: 640px) {
+  .add-todo-form {
+    flex-direction: column;
+  }
+  
+  .todo-input, .add-btn {
+    width: 100%;
+  }
 }
