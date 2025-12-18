@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
 
-export default function Todolist() {
+function Todolist() {
   const [todos, setTodos] = useState([
     { id: 1, text: 'Learn React', completed: true },
     { id: 2, text: 'Build Todo App', completed: false },
+    { id: 3, text: 'Write Tests', completed: false },
   ]);
 
   const addTodo = (text) => {
-    setTodos([...todos, { id: Date.now(), text, completed: false }]);
+    const newTodo = {
+      id: Date.now(),
+      text,
+      completed: false,
+    };
+    setTodos([...todos, newTodo]);
   };
 
   const toggleTodo = (id) => {
-    setTodos(todos.map(todo => 
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
+    setTodos(
+      todos.map(todo =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
   };
 
   const deleteTodo = (id) => {
@@ -21,8 +29,8 @@ export default function Todolist() {
   };
 
   return (
-    <div>
-      <h1>Todo List</h1>
+    <div className="todo-app">
+      <h1>React Todo List</h1>
       <ul>
         {todos.map(todo => (
           <li key={todo.id}>
@@ -50,3 +58,5 @@ export default function Todolist() {
     </div>
   );
 }
+
+export default Todolist;
